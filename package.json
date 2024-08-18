@@ -15,10 +15,13 @@
     "@astrojs/check": "^0.9.2",
     "@astrojs/cloudflare": "^11.0.4",
     "astro": "^4.14.2",
+    "better-sqlite3": "^11.1.2",
+    "drizzle-orm": "0.32.x",
     "typescript": "^5.5.4"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240815.0",
+    "drizzle-kit": "0.23.x",
     "wrangler": "^3.72.0"
   }
 }
