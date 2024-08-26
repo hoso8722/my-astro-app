@@ -28,7 +28,7 @@ pages_build_output_dir = "./dist"
 [[d1_databases]]
 binding = "DB"
 database_name = "astro_db"
-database_id = "d7c7004c-8ae7-450a-bb12-d452dca374dc"
+database_id = "6b2304d9-8aa8-4dc7-b084-358a84f7aa68"
 
 # Bind a Durable Object. Durable objects are a scale-to-zero compute primitive based on the actor model.
 # Durable Objects can live for as long as needed. Use these when you need a long-running "server", such as in realtime apps.

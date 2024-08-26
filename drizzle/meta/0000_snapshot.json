@@ -1,9 +1,40 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "22743bd4-6a8f-44ef-a34b-e2c562a9aa96",
+  "id": "b6d071b0-7531-406c-a30c-44afabab0448",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
+    "login_users": {
+      "name": "login_users",
+      "columns": {
+        "username": {
+          "name": "username",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "password_hash": {
+          "name": "password_hash",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "login_users_username_unique": {
+          "name": "login_users_username_unique",
+          "columns": [
+            "username"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "todos": {
       "name": "todos",
       "columns": {
