@@ -1,0 +1,40 @@
+---
+---
+<h1>Sign Up</h1>
+<form method="post" action="api/signup">
+  <label>
+    Username:
+    <input type="text" name="username" required />
+  </label>
+</br>
+  <!-- <label>
+    Email:
+    <input type="email" name="email" required />
+  </label>
+</br> -->
+  <label>
+    Password:
+    <input type="password" name="password"  minlength="6"  maxlength="" required />
+  </label>
+  <button>Submit</button>
+</form>
+<a href="/login">Login page</a>
+
+<script>
+	const errorMessageElement = document.getElementById("form-error")!;
+
+	document.forms[0].addEventListener("submit", async (e) => {
+		e.preventDefault();
+		errorMessageElement.innerText = "";
+		const formElement = e.target as HTMLFormElement;
+		const response = await fetch(formElement.action, {
+			method: formElement.method,
+			body: new FormData(formElement)
+		});
+		if (response.ok) {
+			window.location.href = "/";
+		} else {
+			errorMessageElement.innerText = (await response.json.toString());
+		}
+	});
+</script>

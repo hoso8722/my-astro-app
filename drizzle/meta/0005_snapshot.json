@@ -1,8 +1,8 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "932b532e-f149-4ceb-9602-36d9d7a01938",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "ff55b2a4-98b6-48ee-b775-4516e2c5ea82",
+  "prevId": "4685422c-88b1-4612-a5d5-35bedc2fd765",
   "tables": {
     "login_users": {
       "name": "login_users",
@@ -97,18 +97,18 @@
           "notNull": true,
           "autoincrement": true
         },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
         "mail_address": {
           "name": "mail_address",
           "type": "text",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "username": {
-          "name": "username",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false
         },
         "hashed_password": {
@@ -120,17 +120,17 @@
         }
       },
       "indexes": {
-        "user_mail_address_unique": {
-          "name": "user_mail_address_unique",
+        "name_idx": {
+          "name": "name_idx",
+          "columns": [
+            "name"
+          ],
+          "isUnique": false
+        },
+        "email_idx": {
+          "name": "email_idx",
           "columns": [
             "mail_address"
-          ],
-          "isUnique": true
-        },
-        "user_username_unique": {
-          "name": "user_username_unique",
-          "columns": [
-            "username"
           ],
           "isUnique": true
         }

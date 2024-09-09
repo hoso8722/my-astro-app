@@ -1,0 +1,5 @@
+DROP TABLE IF EXISTS `todos`;
+DROP TABLE IF EXISTS `login_users`;
+DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `session`;
+DROP TABLE IF EXISTS `oauth_account`;

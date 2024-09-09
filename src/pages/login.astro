@@ -1,0 +1,68 @@
+---
+// import { isRegistered, registerUser } from "../../data/users"
+import { isRegistered } from "../utils/isRegistered"
+import { isValidated } from "../utils/isValidated";
+import { initializeDrizzle } from "../utils/db";
+import { Hash } from "../utils/hash"
+import { isVerify } from "../utils/isVerify"
+import { user, todos } from "../db/schema";
+import { drizzle } from "drizzle-orm/d1";
+
+import Layout from "../layouts/Layout.astro";
+import type { ACTION_ERROR_CODES } from "astro:actions";
+import { isValid, string } from "astro/zod";
+import { ConsoleLogWriter, eq } from "drizzle-orm";
+
+const errors = { email: "", password: "", verification: ""};
+
+if (Astro.request.method === "POST") {
+    // console.log("===Astro.local\n",Astro.locals.runtime.env.lucia)
+    const db = initializeDrizzle(Astro.locals.runtime.env.DB);
+  try {
+    const data = await Astro.request.formData()
+    const email = String(data.get("email"))
+    const password = String(data.get("password"))
+    if (typeof email !== "string" || isValidated.email(email) === false) {
+      errors.email = "メールアドレスが不正です ";
+    }
+    if (typeof password !== "string" || isValidated.password(password) === false) {
+      errors.password = "パスワードが不正です。８文字以上２５文字以下、英大文字小文字数字をそれぞれ１文字以上含めてください";
+    }
+    const [ is_login, user ] = await isVerify.login_password(db, email, password)
+    if ( is_login === false) {
+      errors.verification = "メールアドレスかパスワードが間違っています"
+    }
+    const hasErrors: boolean = Object.values(errors).some(msg => msg)
+    if (hasErrors) {  
+    	return Astro.redirect("/login");
+    }
+    //create login session
+    const lucia = Astro.locals.runtime.env.lucia
+    const session = await Astro.locals.runtime.env.lucia.createSession(user.id, {});
+    const sessionCookie = await lucia.createSessionCookie(session.id);
+    console.log("test")
+  } catch (error) {
+    if (error instanceof Error) {
+        console.log(error.message)
+    }
+  }
+}
+---
+
+<Layout title="Login Page">
+	<h1>Login</h1>
+	<form method="POST">
+		<label>
+			Email:
+			<input type="email" name="email" placeholder="example@mail.com" value="" required />
+		  </label>
+		  {errors.email && <p>{errors.email}</p>}
+		  <label>
+			Password:
+			<input type="password" name="password" placeholder="パスワードを入力" minlength="8" maxlength="25" required/>
+		  </label>
+		  {errors.password && <p>{errors.password}</p>}
+		  <button>Log in</button>
+	</form>
+	<p><a href="/register">Create an account</a></p>
+</Layout>
